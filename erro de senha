@@ -1,0 +1,29 @@
+window.entrar = async function() {
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+  const msg = document.getElementById("msg");
+
+  msg.innerHTML = ""; // limpa mensagem
+
+  try {
+    await signInWithEmailAndPassword(auth, email, senha);
+
+    msg.innerHTML = "<span style='color:green'>Login realizado!</span>";
+    fecharLogin();
+
+  } catch (err) {
+
+    if (err.code === "auth/user-not-found") {
+      msg.innerHTML = "<span style='color:red'>❌ Email não cadastrado</span>";
+
+    } else if (err.code === "auth/wrong-password") {
+      msg.innerHTML = "<span style='color:red'>❌ Senha incorreta</span>";
+
+    } else if (err.code === "auth/invalid-email") {
+      msg.innerHTML = "<span style='color:red'>❌ Email inválido</span>";
+
+    } else {
+      msg.innerHTML = "<span style='color:red'>Erro: " + err.message + "</span>";
+    }
+  }
+}
