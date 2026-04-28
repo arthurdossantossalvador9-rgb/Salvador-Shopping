@@ -8,7 +8,7 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background: #f4f4f4;
 }
 
@@ -23,7 +23,7 @@ header {
 
 .logo {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .search {
@@ -38,10 +38,22 @@ header {
   border: none;
 }
 
-.nav a {
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav span {
+  margin-right: 10px;
+}
+
+.nav button {
+  background: #ff9900;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
   color: white;
-  margin-left: 15px;
-  text-decoration: none;
 }
 
 /* BANNER */
@@ -49,16 +61,6 @@ header {
   background: linear-gradient(90deg,#ffcc00,#ff9900);
   text-align: center;
   padding: 60px 20px;
-}
-
-.btn {
-  margin-top: 20px;
-  padding: 12px 25px;
-  border: none;
-  background: black;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
 }
 
 /* PRODUTOS */
@@ -86,16 +88,8 @@ header {
   font-weight: bold;
 }
 
-/* FOOTER */
-footer {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-/* LOGIN MODAL */
-#loginBox {
+/* MODAL */
+#authBox {
   position: fixed;
   top: 0;
   left: 0;
@@ -103,45 +97,37 @@ footer {
   height: 100%;
   display: none;
   backdrop-filter: blur(6px);
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.6);
   justify-content: center;
   align-items: center;
 }
 
-/* ANIMAÇÃO */
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(-20px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
-.login-card {
+.auth-card {
   background: white;
-  padding: 25px;
-  width: 320px;
+  padding: 30px;
+  width: 350px;
   border-radius: 12px;
-  animation: fadeIn 0.3s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: fade 0.3s;
 }
 
-.login-card h2 {
-  margin-bottom: 15px;
+@keyframes fade {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1;}
 }
 
-.login-card input {
+.auth-card h2 {
+  text-align: center;
+}
+
+.auth-card input {
   width: 100%;
   padding: 12px;
-  margin: 8px 0;
+  margin: 10px 0;
   border-radius: 8px;
   border: 1px solid #ccc;
-  transition: 0.2s;
 }
 
-.login-card input:focus {
-  border-color: #ff9900;
-  outline: none;
-}
-
-.login-btn {
+.auth-card button {
   width: 100%;
   padding: 12px;
   background: #ff9900;
@@ -152,12 +138,23 @@ footer {
   margin-top: 10px;
 }
 
-.close-btn {
+.switch {
+  text-align: center;
   margin-top: 10px;
-  background: none;
-  border: none;
-  color: #666;
   cursor: pointer;
+  color: #ff9900;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+}
+
+.success {
+  color: green;
+  font-size: 14px;
+  text-align: center;
 }
 </style>
 </head>
@@ -172,15 +169,14 @@ footer {
   </div>
 
   <div class="nav">
-    <a href="#" onclick="openLogin()">Entrar</a>
-    <a href="#">Carrinho</a>
+    <span id="userName"></span>
+    <button onclick="abrirAuth()">Entrar</button>
+    <button onclick="logout()">Sair</button>
   </div>
 </header>
 
 <section class="banner">
-  <h1>Salvador Shopping</h1>
-  <p>As melhores ofertas em um só lugar</p>
-  <button class="btn">Ver ofertas</button>
+  <h1>As melhores ofertas</h1>
 </section>
 
 <section class="products">
@@ -188,68 +184,108 @@ footer {
     <h3>Camisa Premium</h3>
     <p class="price">R$ 99,90</p>
   </div>
-
   <div class="card">
     <h3>Headset Gamer</h3>
     <p class="price">R$ 199,90</p>
   </div>
-
-  <div class="card">
-    <h3>Perfume Importado</h3>
-    <p class="price">R$ 249,90</p>
-  </div>
 </section>
 
-<footer>
-  © 2026 Salvador Shopping
-</footer>
+<!-- MODAL LOGIN/CADASTRO -->
+<div id="authBox">
+  <div class="auth-card">
+    <h2 id="titulo">Entrar</h2>
 
-<!-- LOGIN MODAL -->
-<div id="loginBox">
-  <div class="login-card">
-    <h2>Entrar</h2>
-    <input type="email" id="email" placeholder="Seu email">
-    <input type="password" id="senha" placeholder="Sua senha">
-    <button class="login-btn" onclick="login()">Entrar</button>
-    <button class="close-btn" onclick="fecharLogin()">Cancelar</button>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="senha" placeholder="Senha">
+
+    <div id="msg"></div>
+
+    <button onclick="acaoPrincipal()">Entrar</button>
+    <div class="switch" onclick="alternarModo()">Criar conta</div>
+
+    <button onclick="fecharAuth()">Cancelar</button>
   </div>
 </div>
 
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { 
+  getAuth, 
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "SUA_KEY",
-  authDomain: "salavador-shopping.firebaseapp.com",
-  projectId: "salavador-shopping",
+  authDomain: "salvador-shopping.firebaseapp.com",
+  projectId: "salvador-shopping",
   appId: "SUA_APP_ID"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-window.login = function() {
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
+let modoLogin = true;
 
-  signInWithEmailAndPassword(auth, email, senha)
-    .then(() => {
-      alert("Login realizado!");
-      fecharLogin();
-    })
-    .catch(err => alert(err.message));
-}
-</script>
+// alternar login/cadastro
+window.alternarModo = function() {
+  modoLogin = !modoLogin;
 
-<script>
-function openLogin() {
-  document.getElementById("loginBox").style.display = "flex";
+  document.getElementById("titulo").innerText = modoLogin ? "Entrar" : "Cadastrar";
+  document.querySelector(".switch").innerText = modoLogin ? "Criar conta" : "Já tenho conta";
+  document.querySelector(".auth-card button").innerText = modoLogin ? "Entrar" : "Cadastrar";
 }
 
-function fecharLogin() {
-  document.getElementById("loginBox").style.display = "none";
+// ação principal
+window.acaoPrincipal = function() {
+  const email = email.value;
+  const senha = senha.value;
+  const msg = document.getElementById("msg");
+
+  msg.innerHTML = "";
+
+  if(modoLogin){
+    signInWithEmailAndPassword(auth, email, senha)
+      .then(() => {
+        msg.innerHTML = "<div class='success'>Login feito!</div>";
+        fecharAuth();
+      })
+      .catch(err => msg.innerHTML = "<div class='error'>" + err.message + "</div>");
+  } else {
+    createUserWithEmailAndPassword(auth, email, senha)
+      .then(() => {
+        msg.innerHTML = "<div class='success'>Conta criada!</div>";
+      })
+      .catch(err => msg.innerHTML = "<div class='error'>" + err.message + "</div>");
+  }
+}
+
+// estado do usuário
+onAuthStateChanged(auth, user => {
+  const userName = document.getElementById("userName");
+
+  if(user){
+    userName.innerText = user.email;
+  } else {
+    userName.innerText = "";
+  }
+});
+
+// logout
+window.logout = function() {
+  signOut(auth);
+}
+
+// modal
+window.abrirAuth = function() {
+  document.getElementById("authBox").style.display = "flex";
+}
+
+window.fecharAuth = function() {
+  document.getElementById("authBox").style.display = "none";
 }
 </script>
 
