@@ -207,87 +207,21 @@ header {
   </div>
 </div>
 
-<!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { 
   getAuth, 
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
+  createUserWithEmailAndPassword 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "SUA_KEY",
+  apiKey: "AIzaSyBLGp8UQr_5ZN4FEeHkySMtOPPz7QClu-8", // 👈 sua key aqui
   authDomain: "salvador-shopping.firebaseapp.com",
   projectId: "salvador-shopping",
-  appId: "SUA_APP_ID"
+  appId: "1:709828325994:web:db9637dde9e581fbe15013"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
-let modoLogin = true;
-
-// alternar login/cadastro
-window.alternarModo = function() {
-  modoLogin = !modoLogin;
-
-  document.getElementById("titulo").innerText = modoLogin ? "Entrar" : "Cadastrar";
-  document.querySelector(".switch").innerText = modoLogin ? "Criar conta" : "Já tenho conta";
-  document.querySelector(".auth-card button").innerText = modoLogin ? "Entrar" : "Cadastrar";
-}
-
-// ação principal
-window.acaoPrincipal = function() {
-  const email = email.value;
-  const senha = senha.value;
-  const msg = document.getElementById("msg");
-
-  msg.innerHTML = "";
-
-  if(modoLogin){
-    signInWithEmailAndPassword(auth, email, senha)
-      .then(() => {
-        msg.innerHTML = "<div class='success'>Login feito!</div>";
-        fecharAuth();
-      })
-      .catch(err => msg.innerHTML = "<div class='error'>" + err.message + "</div>");
-  } else {
-    createUserWithEmailAndPassword(auth, email, senha)
-      .then(() => {
-        msg.innerHTML = "<div class='success'>Conta criada!</div>";
-      })
-      .catch(err => msg.innerHTML = "<div class='error'>" + err.message + "</div>");
-  }
-}
-
-// estado do usuário
-onAuthStateChanged(auth, user => {
-  const userName = document.getElementById("userName");
-
-  if(user){
-    userName.innerText = user.email;
-  } else {
-    userName.innerText = "";
-  }
-});
-
-// logout
-window.logout = function() {
-  signOut(auth);
-}
-
-// modal
-window.abrirAuth = function() {
-  document.getElementById("authBox").style.display = "flex";
-}
-
-window.fecharAuth = function() {
-  document.getElementById("authBox").style.display = "none";
-}
 </script>
-
-</body>
-</html>
