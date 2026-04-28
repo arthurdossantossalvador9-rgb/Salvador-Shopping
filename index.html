@@ -173,90 +173,87 @@
 
   <footer>
     © 2026 Salvador Shopping - Todos os direitos reservados
-  <footer>
-    © 2026 Salvador Shopping - Todos os direitos reservados
-  </footer>
+#loginBox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(6px);
+}
 
-  <!-- 🔥 LOGIN BOX -->
-  <div id="loginBox">
-    <div>
-      <h2>Entrar</h2>
+/* caixa principal */
+#loginBox div {
+  background: linear-gradient(145deg, #111, #1a1a1a);
+  padding: 25px;
+  border-radius: 16px;
+  width: 320px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  color: white;
+  text-align: center;
+  border: 1px solid #ffcc00;
+}
 
-      <input id="email" type="email" placeholder="Email">
-      <input id="password" type="password" placeholder="Senha">
+/* título */
+#loginBox h2 {
+  margin-bottom: 15px;
+  color: #ffcc00;
+  font-size: 22px;
+}
 
-      <button onclick="login()">Login</button>
-      <button onclick="register()">Criar conta</button>
-      <button onclick="closeLogin()">Fechar</button>
-    </div>
-  </div>
+/* inputs */
+#loginBox input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: #222;
+  color: white;
+  transition: 0.2s;
+}
 
-  <!-- 🔥 FIREBASE SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-analytics.js"></script>
+#loginBox input:focus {
+  border: 1px solid #ffcc00;
+  box-shadow: 0 0 10px rgba(255,204,0,0.3);
+}
 
-  <script>
-    // 🔧 CONFIG FIREBASE
-    const firebaseConfig = {
-      apiKey: "AIzaSyBLGp8UQr_5ZN4FEeHkySMtOPPz7QClu-8",
-      authDomain: "salavador-shopping.firebaseapp.com",
-      projectId: "salavador-shopping",
-      storageBucket: "salavador-shopping.firebasestorage.app",
-      messagingSenderId: "709828325994",
-      appId: "1:709828325994:web:db9637dde9e581fbe15013",
-      measurementId: "G-8D3SYT6236"
-    };
+/* botões */
+#loginBox button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
 
-    // 🚀 INIT FIREBASE
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+/* botão login */
+#loginBox button:nth-child(3) {
+  background: #ffcc00;
+  color: black;
+}
 
-    // =========================
-    // 🔐 LOGIN SYSTEM
-    // =========================
+/* botão criar conta */
+#loginBox button:nth-child(4) {
+  background: #333;
+  color: white;
+}
 
-    function openLogin() {
-      document.getElementById("loginBox").style.display = "flex";
-    }
+/* botão fechar */
+#loginBox button:nth-child(5) {
+  background: transparent;
+  border: 1px solid #ffcc00;
+  color: #ffcc00;
+}
 
-    function closeLogin() {
-      document.getElementById("loginBox").style.display = "none";
-    }
-
-    async function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      try {
-        await auth.signInWithEmailAndPassword(email, password);
-        alert("Login realizado com sucesso!");
-        closeLogin();
-      } catch (error) {
-        alert("Erro: " + error.message);
-      }
-    }
-
-    async function register() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      try {
-        await auth.createUserWithEmailAndPassword(email, password);
-        alert("Conta criada com sucesso!");
-        closeLogin();
-      } catch (error) {
-        alert("Erro: " + error.message);
-      }
-    }
-
-    // 👀 usuário logado
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.log("Usuário logado:", user.email);
-      }
-    });
-  </script>
-
-</body>
-</html>
+#loginBox button:hover {
+  transform: scale(1.03);
+}
