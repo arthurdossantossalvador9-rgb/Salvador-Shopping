@@ -1,259 +1,257 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Salvador Shopping</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salvador Shopping</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
 
-    header {
-      background-color: #111;
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+/* HEADER */
+header {
+  background: #111;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+}
 
-    .logo {
-      font-size: 20px;
-      font-weight: bold;
-    }
+.logo {
+  font-weight: bold;
+  font-size: 20px;
+}
 
-    .search {
-      flex: 1;
-      margin: 0 20px;
-    }
+.search {
+  flex: 1;
+  margin: 0 20px;
+}
 
-    .search input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-    }
+.search input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+}
 
-    .nav a {
-      color: white;
-      margin-left: 15px;
-      text-decoration: none;
-    }
+.nav a {
+  color: white;
+  margin-left: 15px;
+  text-decoration: none;
+}
 
-    .banner {
-      background: linear-gradient(90deg, #ffcc00, #ff9900);
-      padding: 60px 20px;
-      text-align: center;
-    }
+/* BANNER */
+.banner {
+  background: linear-gradient(90deg,#ffcc00,#ff9900);
+  text-align: center;
+  padding: 60px 20px;
+}
 
-    .banner h1 {
-      margin: 0;
-      font-size: 40px;
-    }
+.btn {
+  margin-top: 20px;
+  padding: 12px 25px;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-    .banner p {
-      margin-top: 10px;
-      font-size: 18px;
-    }
+/* PRODUTOS */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 20px;
+  padding: 30px;
+}
 
-    .btn {
-      margin-top: 20px;
-      padding: 12px 25px;
-      border: none;
-      background: black;
-      color: white;
-      cursor: pointer;
-      border-radius: 6px;
-    }
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.3s;
+}
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 30px;
-    }
+.card:hover {
+  transform: translateY(-5px);
+}
 
-    .card {
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+.price {
+  color: green;
+  font-weight: bold;
+}
 
-    .price {
-      color: green;
-      font-weight: bold;
-      margin-top: 10px;
-    }
+/* FOOTER */
+footer {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #111;
-      color: white;
-      margin-top: 30px;
-    }
-
-    /* LOGIN */
-    #loginBox {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-    }
-
-    #loginBox div {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-    }
-
-    #loginBox input {
-      width: 100%;
-      padding: 10px;
-      margin: 5px 0;
-    }
-
-    #loginBox button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-    }
-  </style>
-</head>
-
-<body>
-
-  <header>
-    <div class="logo">Salvador Shopping</div>
-
-    <div class="search">
-      <input type="text" placeholder="Buscar produtos...">
-    </div>
-
-    <div class="nav">
-      <a href="#" onclick="openLogin()">Entrar</a>
-      <a href="#">Carrinho</a>
-    </div>
-  </header>
-
-  <section class="banner">
-    <h1>Salvador Shopping</h1>
-    <p>As melhores ofertas em um só lugar</p>
-    <button class="btn">Ver ofertas</button>
-  </section>
-
-  <section class="products">
-    <div class="card">
-      <h3>Camisa Premium</h3>
-      <p class="price">R$ 99,90</p>
-    </div>
-
-    <div class="card">
-      <h3>Headset Gamer</h3>
-      <p class="price">R$ 199,90</p>
-    </div>
-
-    <div class="card">
-      <h3>Perfume Importado</h3>
-      <p class="price">R$ 249,90</p>
-    </div>
-  </section>
-
-  <footer>
-    © 2026 Salvador Shopping - Todos os direitos reservados
+/* LOGIN MODAL */
 #loginBox {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.75);
+  display: none;
+  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.5);
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(6px);
 }
 
-/* caixa principal */
-#loginBox div {
-  background: linear-gradient(145deg, #111, #1a1a1a);
+/* ANIMAÇÃO */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.login-card {
+  background: white;
   padding: 25px;
-  border-radius: 16px;
   width: 320px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-  color: white;
-  text-align: center;
-  border: 1px solid #ffcc00;
+  border-radius: 12px;
+  animation: fadeIn 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* título */
-#loginBox h2 {
+.login-card h2 {
   margin-bottom: 15px;
-  color: #ffcc00;
-  font-size: 22px;
 }
 
-/* inputs */
-#loginBox input {
+.login-card input {
   width: 100%;
   padding: 12px;
   margin: 8px 0;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: #222;
-  color: white;
+  border-radius: 8px;
+  border: 1px solid #ccc;
   transition: 0.2s;
 }
 
-#loginBox input:focus {
-  border: 1px solid #ffcc00;
-  box-shadow: 0 0 10px rgba(255,204,0,0.3);
+.login-card input:focus {
+  border-color: #ff9900;
+  outline: none;
 }
 
-/* botões */
-#loginBox button {
+.login-btn {
   width: 100%;
   padding: 12px;
-  margin-top: 8px;
-  border-radius: 10px;
+  background: #ff9900;
   border: none;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-/* botão login */
-#loginBox button:nth-child(3) {
-  background: #ffcc00;
-  color: black;
-}
-
-/* botão criar conta */
-#loginBox button:nth-child(4) {
-  background: #333;
   color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-/* botão fechar */
-#loginBox button:nth-child(5) {
-  background: transparent;
-  border: 1px solid #ffcc00;
-  color: #ffcc00;
+.close-btn {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Salvador Shopping</div>
+
+  <div class="search">
+    <input type="text" placeholder="Buscar produtos...">
+  </div>
+
+  <div class="nav">
+    <a href="#" onclick="openLogin()">Entrar</a>
+    <a href="#">Carrinho</a>
+  </div>
+</header>
+
+<section class="banner">
+  <h1>Salvador Shopping</h1>
+  <p>As melhores ofertas em um só lugar</p>
+  <button class="btn">Ver ofertas</button>
+</section>
+
+<section class="products">
+  <div class="card">
+    <h3>Camisa Premium</h3>
+    <p class="price">R$ 99,90</p>
+  </div>
+
+  <div class="card">
+    <h3>Headset Gamer</h3>
+    <p class="price">R$ 199,90</p>
+  </div>
+
+  <div class="card">
+    <h3>Perfume Importado</h3>
+    <p class="price">R$ 249,90</p>
+  </div>
+</section>
+
+<footer>
+  © 2026 Salvador Shopping
+</footer>
+
+<!-- LOGIN MODAL -->
+<div id="loginBox">
+  <div class="login-card">
+    <h2>Entrar</h2>
+    <input type="email" id="email" placeholder="Seu email">
+    <input type="password" id="senha" placeholder="Sua senha">
+    <button class="login-btn" onclick="login()">Entrar</button>
+    <button class="close-btn" onclick="fecharLogin()">Cancelar</button>
+  </div>
+</div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "SUA_KEY",
+  authDomain: "salavador-shopping.firebaseapp.com",
+  projectId: "salavador-shopping",
+  appId: "SUA_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.login = function() {
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+
+  signInWithEmailAndPassword(auth, email, senha)
+    .then(() => {
+      alert("Login realizado!");
+      fecharLogin();
+    })
+    .catch(err => alert(err.message));
+}
+</script>
+
+<script>
+function openLogin() {
+  document.getElementById("loginBox").style.display = "flex";
 }
 
-#loginBox button:hover {
-  transform: scale(1.03);
+function fecharLogin() {
+  document.getElementById("loginBox").style.display = "none";
 }
+</script>
+
+</body>
+</html>
