@@ -2,12 +2,148 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Salvador Shopping</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #111;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .search {
+      flex: 1;
+      margin: 0 20px;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .nav a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+    }
+
+    .banner {
+      background: linear-gradient(90deg, #ffcc00, #ff9900);
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .banner h1 {
+      margin: 0;
+      font-size: 40px;
+    }
+
+    .banner p {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      border: none;
+      background: black;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .price {
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: white;
+      margin-top: 30px;
+    }
+  </style>
 </head>
+
 <body>
 
-  <h1>🛒 Salvador Shopping</h1>
-  <p>Site funcionando agora ✔</p>
+  <header>
+    <div class="logo">🛒 Salvador Shopping</div>
+
+    <div class="search">
+      <input type="text" placeholder="Buscar produtos...">
+    </div>
+
+    <div class="nav">
+      <a href="#">Entrar</a>
+      <a href="#">Carrinho</a>
+    </div>
+  </header>
+
+  <section class="banner">
+    <h1>Salvador Shopping</h1>
+    <p>As melhores ofertas em um só lugar</p>
+    <button class="btn">Ver ofertas</button>
+  </section>
+
+  <section class="products">
+
+    <div class="card">
+      <h3>Camisa Premium</h3>
+      <p class="price">R$ 99,90</p>
+    </div>
+
+    <div class="card">
+      <h3>Headset Gamer</h3>
+      <p class="price">R$ 199,90</p>
+    </div>
+
+    <div class="card">
+      <h3>Perfume Importado</h3>
+      <p class="price">R$ 249,90</p>
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 Salvador Shopping - Todos os direitos reservados
+  </footer>
 
 </body>
 </html>
