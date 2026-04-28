@@ -173,69 +173,90 @@
 
   <footer>
     © 2026 Salvador Shopping - Todos os direitos reservados
-  </footer <!-- 🔥 FIREBASE SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-analytics.js"></script>
+  <footer>
+    © 2026 Salvador Shopping - Todos os direitos reservados
+  </footer>
 
-<script>
-  // 🔧 CONFIGURAÇÃO FIREBASE
-  const firebaseConfig = {
-    apiKey: "AIzaSyBLGp8UQr_5ZN4FEeHkySMtOPP7QClu-8",
-    authDomain: "salavador-shopping.firebaseapp.com",
-    projectId: "salavador-shopping",
-    storageBucket: "salavador-shopping.firebasestorage.app",
-    messagingSenderId: "709828325994",
-    appId: "1:709828325994:web:db9637dde9e581fbe15013",
-    measurementId: "G-8D3SYT6236"
-  };
+  <!-- 🔥 LOGIN BOX -->
+  <div id="loginBox">
+    <div>
+      <h2>Entrar</h2>
 
-  // 🚀 INICIALIZA FIREBASE
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+      <input id="email" type="email" placeholder="Email">
+      <input id="password" type="password" placeholder="Senha">
 
-  // =========================
-  // 🔐 LOGIN SYSTEM
-  // =========================
+      <button onclick="login()">Login</button>
+      <button onclick="register()">Criar conta</button>
+      <button onclick="closeLogin()">Fechar</button>
+    </div>
+  </div>
 
-  function openLogin() {
-    document.getElementById("loginBox").style.display = "flex";
-  }
+  <!-- 🔥 FIREBASE SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-analytics.js"></script>
 
-  function closeLogin() {
-    document.getElementById("loginBox").style.display = "none";
-  }
+  <script>
+    // 🔧 CONFIG FIREBASE
+    const firebaseConfig = {
+      apiKey: "AIzaSyBLGp8UQr_5ZN4FEeHkySMtOPPz7QClu-8",
+      authDomain: "salavador-shopping.firebaseapp.com",
+      projectId: "salavador-shopping",
+      storageBucket: "salavador-shopping.firebasestorage.app",
+      messagingSenderId: "709828325994",
+      appId: "1:709828325994:web:db9637dde9e581fbe15013",
+      measurementId: "G-8D3SYT6236"
+    };
 
-  async function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    // 🚀 INIT FIREBASE
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      alert("Login realizado com sucesso!");
-      closeLogin();
-    } catch (error) {
-      alert("Erro: " + error.message);
+    // =========================
+    // 🔐 LOGIN SYSTEM
+    // =========================
+
+    function openLogin() {
+      document.getElementById("loginBox").style.display = "flex";
     }
-  }
 
-  async function register() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    try {
-      await auth.createUserWithEmailAndPassword(email, password);
-      alert("Conta criada com sucesso!");
-      closeLogin();
-    } catch (error) {
-      alert("Erro: " + error.message);
+    function closeLogin() {
+      document.getElementById("loginBox").style.display = "none";
     }
-  }
 
-  // 👀 Detecta usuário logado (base pra futuro upgrade)
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      console.log("Usuário logado:", user.email);
+    async function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await auth.signInWithEmailAndPassword(email, password);
+        alert("Login realizado com sucesso!");
+        closeLogin();
+      } catch (error) {
+        alert("Erro: " + error.message);
+      }
     }
-  });
-</script>
+
+    async function register() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await auth.createUserWithEmailAndPassword(email, password);
+        alert("Conta criada com sucesso!");
+        closeLogin();
+      } catch (error) {
+        alert("Erro: " + error.message);
+      }
+    }
+
+    // 👀 usuário logado
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("Usuário logado:", user.email);
+      }
+    });
+  </script>
+
+</body>
+</html>
